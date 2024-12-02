@@ -30,7 +30,7 @@ class ResultTests {
 
     @Test
     fun testProblem2() {
-        testProblem(2, NotImplemented, NotImplemented)
+        testProblem(2, 526, 566)
     }
 
     @Test
