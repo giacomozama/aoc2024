@@ -18,9 +18,10 @@ fun main(args: Array<String>) {
     }
 
     for (problemNo in problemsToRun) {
-        val rawInput = File("input/$problemNo.txt").readText()
-        val problem = Problem.INDEX[problemNo - 1]()
-        println("Problem $problemNo part 1: ${problem.solvePart1(rawInput)}")
-        println("Problem $problemNo part 2: ${problem.solvePart2(rawInput)}")
+        val rawInput = File("input/$problemNo.txt").readText().trimEnd('\n')
+        Problem.INDEX[problemNo - 1]().solve(rawInput) { result1, result2 ->
+            println("Problem $problemNo part 1: $result1")
+            println("Problem $problemNo part 2: $result2")
+        }
     }
 }

@@ -2,20 +2,17 @@ package st.contraptioni.aoc2024
 
 import st.contraptioni.aoc2024.problems.*
 
-abstract class Problem<INPUT, RESULT_1 : Any, RESULT_2 : Any> {
+abstract class Problem<INPUT, out RESULT_1 : Any, out RESULT_2 : Any> {
 
-    abstract fun parseInput(rawInput: String): INPUT
+    protected abstract fun parseInput(rawInput: String): INPUT
 
-    abstract fun solvePart1(input: INPUT): RESULT_1
+    protected abstract fun solvePart1(input: INPUT): RESULT_1
 
-    abstract fun solvePart2(input: INPUT): RESULT_2
+    protected abstract fun solvePart2(input: INPUT): RESULT_2
 
-    fun solvePart1(rawInput: String): RESULT_1 {
-        return solvePart1(parseInput(rawInput))
-    }
-
-    fun solvePart2(rawInput: String): RESULT_2 {
-        return solvePart2(parseInput(rawInput))
+    fun solve(rawInput: String, withResult: (RESULT_1, RESULT_2) -> Unit) {
+        val input = parseInput(rawInput)
+        withResult(solvePart1(input), solvePart2(input))
     }
 
     companion object {
