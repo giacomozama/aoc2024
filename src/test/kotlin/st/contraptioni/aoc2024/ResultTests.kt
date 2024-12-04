@@ -31,7 +31,7 @@ class ResultTests {
 
     @Test
     fun testProblem4() {
-        testProblem(4, NotImplemented, NotImplemented)
+        testProblem(4, 2427, 1900)
     }
 
     @Test
