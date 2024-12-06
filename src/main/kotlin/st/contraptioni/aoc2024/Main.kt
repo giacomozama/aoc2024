@@ -2,6 +2,7 @@ package st.contraptioni.aoc2024
 
 import java.io.File
 import kotlin.system.exitProcess
+import kotlin.time.measureTime
 
 fun main(args: Array<String>) {
     val problemsToRun = mutableSetOf<Int>()
@@ -19,9 +20,14 @@ fun main(args: Array<String>) {
 
     for (problemNo in problemsToRun) {
         val rawInput = File("input/$problemNo.txt").readText().trimEnd('\n')
-        Problem.INDEX[problemNo - 1]().solve(rawInput) { result1, result2 ->
-            println("Problem $problemNo part 1: $result1")
-            println("Problem $problemNo part 2: $result2")
+        val result1: Any
+        val result2: Any
+        val time = measureTime {
+            Problem.INDEX[problemNo - 1]().solve(rawInput) { r1, r2 ->
+                result1 = r1
+                result2 = r2
+            }
         }
+        println("Problem $problemNo - Part 1: $result1, Part 2: $result2, Time: $time")
     }
 }

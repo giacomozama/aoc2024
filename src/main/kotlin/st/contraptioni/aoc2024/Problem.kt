@@ -1,6 +1,9 @@
 package st.contraptioni.aoc2024
 
 import st.contraptioni.aoc2024.problems.*
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 abstract class Problem<INPUT, out RESULT_1 : Any, out RESULT_2 : Any> {
 
@@ -10,7 +13,9 @@ abstract class Problem<INPUT, out RESULT_1 : Any, out RESULT_2 : Any> {
 
     protected abstract fun solvePart2(input: INPUT): RESULT_2
 
+    @OptIn(ExperimentalContracts::class)
     fun solve(rawInput: String, withResult: (RESULT_1, RESULT_2) -> Unit) {
+        contract { callsInPlace(withResult, InvocationKind.EXACTLY_ONCE) }
         val input = parseInput(rawInput)
         withResult(solvePart1(input), solvePart2(input))
     }
