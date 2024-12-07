@@ -1,18 +1,48 @@
 package st.contraptioni.aoc2024.problems
 
-import st.contraptioni.aoc2024.NotImplemented
 import st.contraptioni.aoc2024.Problem
 
-class Problem7 : Problem<Unit, NotImplemented, NotImplemented>() {
+class Problem7 : Problem<List<Problem7.Calibration>, Long, Long>() {
 
-    override fun parseInput(rawInput: String) {
+    class Calibration(val result: Long, val operators: List<Int>)
+
+    override fun parseInput(rawInput: String): List<Calibration> {
+        return rawInput.lines().map { l ->
+            val result = l.substringBefore(": ").toLong()
+            val operators = l.substringAfter(": ").split(" ").map { it.toInt() }
+            Calibration(result, operators)
+        }
     }
 
-    override fun solvePart1(input: Unit): NotImplemented {
-        return NotImplemented
+    private fun solveForOperations(input: List<Calibration>, vararg operators: (Long, Int) -> Long): Long {
+        fun check(calibration: Calibration, acc: Long, i: Int): Boolean {
+            if (i == calibration.operators.size) return calibration.result == acc
+            if (acc > calibration.result) return false
+            return operators.any { check(calibration, it(acc, calibration.operators[i]), i + 1) }
+        }
+
+        var ans = 0L
+
+        for (clb in input) {
+            if (check(clb, clb.operators[0].toLong(), 1)) {
+                ans += clb.result
+            }
+        }
+
+        return ans
     }
 
-    override fun solvePart2(input: Unit): NotImplemented {
-        return NotImplemented
+    override fun solvePart1(input: List<Calibration>): Long {
+        return solveForOperations(input, Long::plus, Long::times)
+    }
+
+    override fun solvePart2(input: List<Calibration>): Long {
+        fun concat(a: Long, b: Int): Long {
+            var d = 10L
+            while (d < b) d *= 10
+            return a * d + b
+        }
+
+        return solveForOperations(input, Long::plus, Long::times, ::concat)
     }
 }
