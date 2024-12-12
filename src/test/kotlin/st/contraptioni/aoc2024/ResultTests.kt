@@ -80,7 +80,7 @@ class ResultTests {
 
     @Test
     fun testProblem12() {
-        testProblem(12, NotImplemented, NotImplemented)
+        testProblem(12, 1319878, 784982)
     }
 
     @Test
