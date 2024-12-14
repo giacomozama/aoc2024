@@ -90,7 +90,7 @@ class ResultTests {
 
     @Test
     fun testProblem14() {
-        testProblem(14, NotImplemented, NotImplemented)
+        testProblem(14, 218619120, 7055)
     }
 
     @Test
