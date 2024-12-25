@@ -135,7 +135,7 @@ class ResultTests {
 
     @Test
     fun testProblem23() {
-        testProblem(23, NotImplemented, NotImplemented)
+        testProblem(23, 1485, "cc,dz,ea,hj,if,it,kf,qo,sk,ug,ut,uv,wh")
     }
 
     @Test
